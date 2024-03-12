@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/primary_color"
+    tools:context=".NotesWritingActivity">
+    
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/notes_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/save"
+                android:background="@color/secondary_color"
+                android:layout_alignParentEnd="true"
+                android:padding="8dp"
+                android:src="@drawable/save_button"
+                android:layout_width="?attr/actionBarSize"
+                android:layout_height="?attr/actionBarSize"/>
+        </RelativeLayout>
+
+
+        
+    </androidx.appcompat.widget.Toolbar>
+    <EditText
+        android:id="@+id/title"
+        android:hint="@string/title"
+        android:textColorHint="@color/black"
+        android:padding="8dp"
+        android:textStyle="bold"
+        android:background="@color/secondary_color"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        android:singleLine="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <EditText
+        android:id="@+id/notes"
+        android:hint="@string/add_notes"
+        android:textColorHint="@color/black"
+        android:padding="8dp"
+        android:background="@null"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:textStyle="normal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+</LinearLayout>
