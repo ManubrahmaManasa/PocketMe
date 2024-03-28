@@ -16,9 +16,6 @@ import java.util.Locale
 class NotesWritingActivity:AppCompatActivity() {
     private lateinit var binding: ActivityNotesWritingBinding
 
-    private lateinit var title: EditText
-    private lateinit var notes: EditText
-
     private lateinit var note: Notes
     private var isOldNote = false
 

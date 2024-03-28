@@ -1,112 +1,93 @@
-package com.example.my_notes_app.Adapters;
+package com.example.my_notes_app.Adapters
 
-import android.content.Context;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
+import android.content.Context
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
+import androidx.cardview.widget.CardView
+import androidx.recyclerview.widget.RecyclerView
+import com.example.my_notes_app.Models.Notes
+import com.example.my_notes_app.NotesClickListener
+import com.example.my_notes_app.R
+import java.util.Random
 
-import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
-import androidx.recyclerview.widget.RecyclerView;
-
-import com.example.my_notes_app.Models.Notes;
-import com.example.my_notes_app.NotesClickListener;
-import com.example.my_notes_app.R;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-
-public class NotesListAdapter extends RecyclerView.Adapter<NotesViewHolder> {
-
-    Context context;
-    List<Notes> list;
-    NotesClickListener listener;
-
-    public NotesListAdapter(Context context, List<Notes> list, NotesClickListener listener) {
-        this.context = context;
-        this.list = list;
-        this.listener = listener;
+class NotesListAdapter(
+    var context: Context,
+    var list: List<Notes>,
+    var listener: NotesClickListener
+) : RecyclerView.Adapter<NotesViewHolder>() {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NotesViewHolder {
+        return NotesViewHolder(
+            LayoutInflater.from(context).inflate(R.layout.notes_list, parent, false)
+        )
     }
 
-    @NonNull
-    @Override
-    public NotesViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new NotesViewHolder(LayoutInflater.from(context).inflate(R.layout.notes_list,parent,false));
-    }
-
-    @Override
-    public void onBindViewHolder(@NonNull NotesViewHolder holder, int position) {
-        holder.textViewTitle.setText(list.get(position).getTitle());
-        holder.textViewTitle.setSelected(true);
-
-        holder.textView_Notes.setText(list.get(position).getNotes());
-
-        holder.textView_Date.setText(list.get(position).getDate());
-        holder.textView_Date.setSelected(true);
-
-        if(list.get(position).isPinned()){
-            holder.imageview_pin.setImageResource(R.drawable.pin);
-        }else{
-            holder.imageview_pin.setImageResource(0);
+    override fun onBindViewHolder(holder: NotesViewHolder, position: Int) {
+        holder.textViewTitle.text = list[position].title
+        holder.textViewTitle.isSelected = true
+        holder.textView_Notes.text = list[position].notes
+        holder.textView_Date.text = list[position].date
+        holder.textView_Date.isSelected = true
+        if (list[position].isPinned) {
+            holder.imageview_pin.setImageResource(R.drawable.pin)
+        } else {
+            holder.imageview_pin.setImageResource(0)
         }
-        int color_code = getRandomColor();
-        holder.notes_list_view.setCardBackgroundColor(holder.itemView.getResources().getColor(color_code,null));
-
-        holder.notes_list_view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                listener.onClick(list.get(holder.getAdapterPosition()));
-            }
-        });
-        holder.notes_list_view.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                listener.onLongClick(list.get(holder.getAdapterPosition()), holder.notes_list_view);
-                return true ;
-            }
-        });
+        val color_code = randomColor
+        holder.notes_list_view.setCardBackgroundColor(
+            holder.itemView.resources.getColor(
+                color_code,
+                null
+            )
+        )
+        holder.notes_list_view.setOnClickListener {
+            listener.onClick(
+                list[holder.adapterPosition]
+            )
+        }
+        holder.notes_list_view.setOnLongClickListener {
+            listener.onLongClick(list[holder.adapterPosition], holder.notes_list_view)
+            true
+        }
     }
 
-    private int getRandomColor(){
-        List<Integer> colorCode = new ArrayList<>();
+    private val randomColor: Int
+        private get() {
+            val colorCode: MutableList<Int> = ArrayList()
+            colorCode.add(R.color.color1)
+            colorCode.add(R.color.color2)
+            colorCode.add(R.color.color3)
+            colorCode.add(R.color.color4)
+            colorCode.add(R.color.color5)
+            val random = Random()
+            val random_color = random.nextInt(colorCode.size)
+            return colorCode[random_color]
+        }
 
-        colorCode.add(R.color.color1);
-        colorCode.add(R.color.color2);
-        colorCode.add(R.color.color3);
-        colorCode.add(R.color.color4);
-        colorCode.add(R.color.color5);
-
-        Random random  = new Random();
-        int random_color = random.nextInt(colorCode.size());
-        return colorCode.get(random_color);
+    fun filterList(filteredList: List<Notes>) {
+        list = filteredList
+        notifyDataSetChanged()
     }
 
-    public void filterList(List<Notes> filteredList){
-        list = filteredList;
-        notifyDataSetChanged();
-    }
-
-    @Override
-    public int getItemCount() {
-        return list.size();
+    override fun getItemCount(): Int {
+        return list.size
     }
 }
-class NotesViewHolder extends RecyclerView.ViewHolder{
 
-    CardView notes_list_view;
-    TextView textViewTitle,textView_Notes,textView_Date;
-    ImageView imageview_pin;
+class NotesViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    var notes_list_view: CardView
+    var textViewTitle: TextView
+    var textView_Notes: TextView
+    var textView_Date: TextView
+    var imageview_pin: ImageView
 
-    public NotesViewHolder(@NonNull View itemView){
-        super(itemView);
-        notes_list_view = itemView.findViewById(R.id.notes_list_view);
-        textViewTitle = itemView.findViewById(R.id.textViewTitle);
-        textView_Notes = itemView.findViewById(R.id.textView_Notes);
-        textView_Date = itemView.findViewById(R.id.textView_Date);
-        imageview_pin = itemView.findViewById(R.id.imageview_pin);
-
+    init {
+        notes_list_view = itemView.findViewById(R.id.notes_list_view)
+        textViewTitle = itemView.findViewById(R.id.textViewTitle)
+        textView_Notes = itemView.findViewById(R.id.textView_Notes)
+        textView_Date = itemView.findViewById(R.id.textView_Date)
+        imageview_pin = itemView.findViewById(R.id.imageview_pin)
     }
 }

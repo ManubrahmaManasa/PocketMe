@@ -75,8 +75,8 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     private void filteration(String newText) {
         List<Notes> filtered_list = new ArrayList<>();
         for(Notes singleNotes: notes){
-            if(singleNotes.getTitle().toLowerCase().contains(newText.toLowerCase())
-            || singleNotes.getNotes().toLowerCase().contains(newText.toLowerCase())){
+            if(singleNotes.title.toLowerCase().contains(newText.toLowerCase())
+            || singleNotes.notes.toLowerCase().contains(newText.toLowerCase())){
                 filtered_list.add(singleNotes);
             }
         }
@@ -100,7 +100,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         else if(requestCode == 101){
             if(resultCode == Activity.RESULT_OK){
                Notes new_notes = (Notes) data.getSerializableExtra("note");
-               database.mainDAO().update(new_notes.getID(), new_notes.getTitle(), new_notes.getNotes());
+               database.mainDAO().update(new_notes.getID(), new_notes.title, new_notes.notes);
                notes.clear();
                 notes.addAll(database.mainDAO().getAll());
                 notesListAdapter.notifyDataSetChanged();

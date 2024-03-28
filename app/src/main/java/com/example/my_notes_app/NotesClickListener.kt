@@ -1,11 +1,9 @@
-package com.example.my_notes_app;
+package com.example.my_notes_app
 
-import androidx.cardview.widget.CardView;
+import androidx.cardview.widget.CardView
+import com.example.my_notes_app.Models.Notes
 
-import com.example.my_notes_app.Models.Notes;
-
-public interface NotesClickListener {
-    void onClick(Notes notes);
-    void onLongClick(Notes notes, CardView cardView);
-
+interface NotesClickListener {
+    fun onClick(notes: Notes?)
+    fun onLongClick(notes: Notes?, cardView: CardView?)
 }
