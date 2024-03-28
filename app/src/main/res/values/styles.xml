@@ -2,6 +2,6 @@
 <resources>
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="colorPrimary">#010C47</item>
-        <item name="android:textColorPrimary">@color/secondary_color</item>
+        <item name="android:textColorPrimary ">@color/secondary_color</item>
     </style>
 </resources>

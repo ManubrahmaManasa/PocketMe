@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -24,7 +23,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
 
@@ -55,7 +53,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         float_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this,NotesWritingActivity.class);
+                Intent intent = new Intent(MainActivity.this, NotesWritingActivity.class);
                 startActivityForResult(intent,100);
             }
         });
@@ -120,7 +118,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     private final NotesClickListener notesClickListener = new NotesClickListener() {
         @Override
         public void onClick(Notes notes) {
-            Intent intent = new Intent(MainActivity.this,NotesWritingActivity.class);
+            Intent intent = new Intent(MainActivity.this, NotesWritingActivity.class);
             intent.putExtra("old_data",notes);
             startActivityForResult(intent,101);
         }

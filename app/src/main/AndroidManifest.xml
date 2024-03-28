@@ -16,6 +16,11 @@
             android:name=".NotesWritingActivity"
             android:theme="@style/Theme.My_Notes_App.NoActionBar"
             android:exported="false" />
+        <activity android:name=".NotesWritingActivity"
+            android:theme="@style/Theme.My_Notes_App.NoActionBar"
+            android:exported="false">
+        </activity>
+
         <activity
             android:name=".MainActivity"
             android:exported="true">
